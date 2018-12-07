@@ -11,12 +11,12 @@ struct registro {
 
 int info_check(Info *info) {
   /* Checagens básicas de data */
-  if(info->mes < 1 || info->mes > 12 || 
+  if(info->mes < 1 || info->mes > 12 ||
      info->dia < 1 || info->dia > 31 ||
      info->ano <= 0) { return 0;}
   /* Checagens de tamanho de strings */
   if(strlen(info->cod) != 1 || *info->cod <= '0' ||
-     strlen(info->cidade) < 1 && strlen(info->cidade) > 60 || 
+     strlen(info->cidade) < 1 && strlen(info->cidade) > 60 ||
      strlen(info->pais) < 1 && strlen(info->pais) > 30) {
     return 0;
   }
@@ -32,15 +32,12 @@ int info_check(Info *info) {
   return 1;
 }
 
-int pos_insert(Reg *existente, Reg *novo) {
+int pos_insert(Info *e, Info *n) {
   /* Retorna 1 se o nó deve ser inserido à direita, e 0 se à esquerda. */
-  int diff = 0;
-  Info* e_info = &(existente->info);
-  Info* n_info = &(novo->info);
-  if(n_info->ano > e_info->ano) {
+  if(n->ano > e->ano) {
     return 1;
-  } else if (n_info->ano == e_info->ano) {
-    diff = ((n_info->mes - 1) * 30 + n_info->dia) - ((e_info->mes - 1) * 30 + e_info->dia);
+  } else if (n->ano == e->ano) {
+    int diff = ((n->mes - 1) * 30 + n->dia) - ((e->mes - 1) * 30 + e->dia);
     return diff > 0 ? 1 : 0;
   } else {
     return 0;
@@ -91,7 +88,7 @@ int add_dir_reg(Reg *atual, Reg *dir) {
       return 1;
     } else {
       /* Recursivamente adiciona no filho  */
-      pos_insert(atual->dir, dir) ? add_dir_reg(atual->dir, dir) : add_esq_reg(atual->dir, dir);
+      pos_insert(&(atual->dir->info), &(dir->info)) ? add_dir_reg(atual->dir, dir) : add_esq_reg(atual->dir, dir);
     }
   }
   return 0;
@@ -104,7 +101,7 @@ int add_esq_reg(Reg *atual, Reg *esq) {
       return 1;
     } else {
       /* Recursivamente adiciona no filho  */
-      pos_insert(atual->esq, esq) ? add_dir_reg(atual->esq, esq) : add_esq_reg(atual->esq, esq);
+      pos_insert(&(atual->esq->info), &(esq->info)) ? add_dir_reg(atual->esq, esq) : add_esq_reg(atual->esq, esq);
     }
   }
   return 0;
