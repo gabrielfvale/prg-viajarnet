@@ -1,8 +1,8 @@
-#Trabalho CK0226
+# Trabalho CK0226
 
 Instruções:
 
-##TAD Registro
+## TAD Registro
 
 Restrições de Info
 - O cod deve ser uma letra de tamanho 1
@@ -24,7 +24,6 @@ int atribui_info_reg(Reg *reg, Info *info)
 
 Info *acessa_info_reg(Reg *reg)
 - Retorna a Info de *reg se a operação ocorreu com sucesso, NULL caso contrário
-
 int add_dir_reg(Reg *atual, Reg *dir)
 - Adiciona o registro *dir à direita do registro *atual
 - Retorna  1 se a operação ocorreu com sucesso, 0 caso contrário
@@ -48,7 +47,7 @@ int tamanho_reg()
 ============================================================
 
 
-##TAD Usuário
+## TAD Usuário
 
 Restrições de Usu
 - O id deve ser um inteiro positivo
@@ -77,7 +76,7 @@ int tamanho_usu()
 ============================================================
 
 
-##TAD ViajarNet
+## TAD ViajarNet
 
 
 Rede *nova_rede(int tamanho)
