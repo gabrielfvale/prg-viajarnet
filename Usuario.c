@@ -15,7 +15,7 @@ Usu *novo_usu(int id, char *nome) {
     Usu* usr = (Usu*) malloc(sizeof(Usu));
     usr->id = id;
     strcpy(usr->nome, nome);
-    return usr ? usr : NULL;
+    return usr;
   }
   return NULL;
 }
