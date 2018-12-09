@@ -16,8 +16,8 @@ int info_check(Info *info) {
      info->ano <= 0) { return 0;}
   /* Checagens de tamanho de strings */
   if(strlen(info->cod) != 1 || *info->cod <= '0' ||
-     strlen(info->cidade) < 1 && strlen(info->cidade) > 60 ||
-     strlen(info->pais) < 1 && strlen(info->pais) > 30) {
+     strlen(info->cidade) < 1 || strlen(info->cidade) > 60 ||
+     strlen(info->pais) < 1 || strlen(info->pais) > 30) {
     return 0;
   }
   /* 
