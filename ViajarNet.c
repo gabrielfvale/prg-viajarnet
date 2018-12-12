@@ -35,20 +35,22 @@ Rede *nova_rede(int tamanho) {
 }
 
 int add_perfil_rede(Rede *rede, Perfil *perfil) {
-  int id; char nome[100];
-  acessa_usu(perfil->usu, &id, nome);
-  int n_perfis = numero_perfis_rede(rede);
-  Perfil* t_perfil = recupera_perfil_rede(rede, id);
-  if(t_perfil == NULL && n_perfis < rede->tamanho) {
-    rede->perfis[0] = perfil;
-    return 1;
+  if(rede != NULL && perfil != NULL) {
+    int id; char nome[100];
+    acessa_usu(perfil->usu, &id, nome);
+    int n_perfis = numero_perfis_rede(rede);
+    Perfil* t_perfil = recupera_perfil_rede(rede, id);
+    if(t_perfil == NULL && n_perfis < rede->tamanho) {
+      rede->perfis[n_perfis] = perfil;
+      return 1;
+    }
   }
   return 0;
 }
 
 Perfil *recupera_perfil_rede(Rede *rede, int id_usu) {
   int i = 0;
-  while(rede->perfis[i] != NULL) {
+  while(rede->perfis[i] != NULL && i < rede->tamanho) {
     int id; 
     char nome[100];
     Perfil* atual = rede->perfis[i];
@@ -68,10 +70,12 @@ int numero_perfis_rede(Rede *rede) {
 }
 
 Perfil *novo_perf(Usu *usu) {
-  Perfil* perfil = (Perfil*) malloc(sizeof(Perfil));
-  perfil->usu = usu;
-  perfil->reg = NULL;
-  return perfil;
+  if(usu != NULL) {
+    Perfil* perfil = (Perfil*) malloc(sizeof(Perfil));
+    perfil->usu = usu;
+    perfil->reg = NULL;
+  }
+  return NULL;
 }
 
 int libera_perf(Perfil **perfil) {
@@ -90,6 +94,7 @@ Usu *acessa_usuario_perf(Perfil *perfil) {
 }
 
 int add_viagem_perf(Perfil *perfil, Info *info) {
+  if(perfil == NULL || info == NULL) { return 0; }
   Reg* reg = novo_reg(info);
   if(perfil->reg == NULL) {
     perfil->reg = reg;
@@ -97,8 +102,8 @@ int add_viagem_perf(Perfil *perfil, Info *info) {
   } else {
     if(!sobreposta(perfil->reg, info)) {
       pos_insert(acessa_info_reg(perfil->reg), info) ? 
-      add_dir_reg(visita_dir_reg(perfil->reg), reg) : 
-      add_esq_reg(visita_esq_reg(perfil->reg), reg);
+      add_dir_reg(perfil->reg, reg) : 
+      add_esq_reg(perfil->reg, reg);
     }
   }
   return 0;

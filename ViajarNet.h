@@ -5,8 +5,6 @@ typedef struct perfil Perfil;
 
 typedef struct rede Rede;
 
-int sobreposta(Reg *reg, Info *info);
-
 Rede *nova_rede(int tamanho);
 
 int add_perfil_rede(Rede *rede, Perfil *perfil);

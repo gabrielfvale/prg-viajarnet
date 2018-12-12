@@ -100,9 +100,9 @@ int main(void) {
             break;
     case 2: printf("%d", testa_novo_perfil());
             break;
-    case 3: printf("%d", testa_add_perfil());
+    case 3: printf("%d", testa_recupera_perfil());
             break;
-    case 4: printf("%d", testa_recupera_perfil());
+    case 4: printf("%d", testa_add_perfil());
             break;
     case 5: printf("%d", testa_add_viagem());
             break;
