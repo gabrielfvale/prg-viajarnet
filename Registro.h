@@ -26,6 +26,10 @@ int add_dir_reg(Reg *atual, Reg *dir);
 
 int add_esq_reg(Reg *atual, Reg *esq);
 
+int sub_dir_reg(Reg *atual, Reg *dir);
+
+int sub_esq_reg(Reg *atual, Reg *esq);
+
 Reg *visita_dir_reg(Reg *atual);
 
 Reg *visita_esq_reg(Reg *atual);

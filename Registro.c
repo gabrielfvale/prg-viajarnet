@@ -107,6 +107,22 @@ int add_esq_reg(Reg *atual, Reg *esq) {
   return 0;
 }
 
+int sub_dir_reg(Reg *atual, Reg *dir) {
+  if(atual != NULL) {
+    atual->dir = dir;
+    return 1;
+  }
+  return 0;
+}
+
+int sub_esq_reg(Reg *atual, Reg *esq) {
+  if(atual != NULL) {
+    atual->esq = esq;
+    return 1;
+  }
+  return 0;
+}
+
 Reg *visita_dir_reg(Reg *atual) {
   if(atual != NULL) {
     return atual->dir;

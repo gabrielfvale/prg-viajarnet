@@ -170,7 +170,55 @@ int add_viagem_perf(Perfil *perfil, Info *info) {
 }
 
 int remove_viagem_perf(Perfil *perfil, char *cod) {
-  return 0;
+  Reg *raiz = perfil->reg;
+  if(raiz == NULL) return 0;
+  Info *info_no = buscar_viagem_perf(perfil, cod);
+  if(info_no == NULL) return 0;
+
+  Reg *pai = NULL;
+  int lado_filho; // 1 filho direito, 0 filho esquerdo
+  // Achar pai do nó a ser removido
+  while(strcmp(info_no->cod, acessa_info_reg(raiz)->cod) != 0) {
+    if(nodecmp(acessa_info_reg(raiz), info_no)) {
+      pai = raiz;
+      raiz = visita_dir_reg(raiz);
+      lado_filho = 1;
+    } else {
+      pai = raiz;
+      raiz = visita_esq_reg(raiz);
+      lado_filho = 0;
+    }
+  }
+  // Remoção
+  // Caso 1: Nó é uma folha
+  if(visita_dir_reg(raiz) == NULL && visita_esq_reg(raiz) == NULL) {
+    libera_reg(&raiz);
+  }
+  // Caso 2: Nó tem um filho
+  else if(visita_esq_reg(raiz) == NULL) {
+    if(lado_filho) {
+      sub_dir_reg(pai, visita_dir_reg(raiz));
+    } else {
+      sub_esq_reg(pai, visita_dir_reg(raiz));
+    }
+  }
+  // Caso 3: Nó tem dois filhos
+  else {
+    Reg *no_sub = visita_esq_reg(raiz);
+    while(visita_dir_reg(no_sub) != NULL) {
+      no_sub = visita_dir_reg(no_sub);
+    }
+    if(lado_filho) {
+      sub_dir_reg(pai, no_sub);
+      sub_esq_reg(no_sub, visita_esq_reg(raiz));
+      sub_dir_reg(no_sub, visita_dir_reg(raiz));
+    } else {
+      sub_esq_reg(pai, no_sub);
+      sub_esq_reg(no_sub, visita_esq_reg(raiz));
+      sub_dir_reg(no_sub, visita_dir_reg(raiz));
+    }
+  }
+  libera_reg(&raiz);
 }
 
 Info *buscar_viagem_perf(Perfil *perfil, char *cod) {
