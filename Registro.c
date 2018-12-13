@@ -32,7 +32,7 @@ int info_check(Info *info) {
   return 1;
 }
 
-int pos_insert(Info *e, Info *n) {
+int nodecmp(Info *e, Info *n) {
   /* Retorna 1 se o nó deve ser inserido à direita, e 0 se à esquerda. */
   if(n->ano > e->ano) {
     return 1;
@@ -88,7 +88,7 @@ int add_dir_reg(Reg *atual, Reg *dir) {
       return 1;
     } else {
       /* Recursivamente adiciona no filho  */
-      pos_insert(&(atual->dir->info), &(dir->info)) ? add_dir_reg(atual->dir, dir) : add_esq_reg(atual->dir, dir);
+      nodecmp(&(atual->dir->info), &(dir->info)) ? add_dir_reg(atual->dir, dir) : add_esq_reg(atual->dir, dir);
     }
   }
   return 0;
@@ -101,7 +101,7 @@ int add_esq_reg(Reg *atual, Reg *esq) {
       return 1;
     } else {
       /* Recursivamente adiciona no filho  */
-      pos_insert(&(atual->esq->info), &(esq->info)) ? add_dir_reg(atual->esq, esq) : add_esq_reg(atual->esq, esq);
+      nodecmp(&(atual->esq->info), &(esq->info)) ? add_dir_reg(atual->esq, esq) : add_esq_reg(atual->esq, esq);
     }
   }
   return 0;

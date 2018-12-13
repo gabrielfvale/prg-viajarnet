@@ -12,7 +12,7 @@ typedef struct informacao Info;
 
 typedef struct registro Reg;
 
-int pos_insert(Info *e, Info *n);
+int nodecmp(Info *e, Info *n);
 
 Reg *novo_reg(Info *info);
 
