@@ -134,6 +134,7 @@ Perfil *novo_perf(Usu *usu) {
     Perfil* perfil = (Perfil*) malloc(sizeof(Perfil));
     perfil->usu = usu;
     perfil->reg = NULL;
+    return perfil;
   }
   return NULL;
 }
